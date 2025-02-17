@@ -11,25 +11,47 @@ const CartContext = createContext({
 function cartReducer(state, action) {
     switch (action.type) {
         case ADD_ITEM:
-            const existingIndex = state.items.findIndex((item) => item.Id)
+            const existingAddIndex = state.items.findIndex((item) => item.Id)
             
-            const updatedItems = [...state.items]
-            if (existingIndex > -1) {
-                const existingItem = state.items[existingIndex]
-                const updatedItem = {
-                    ...existingItem,
-                    quantity: existingItem.quantity + 1
+            const updatedAddItems = [...state.items]
+            if (existingAddIndex > -1) {
+                const existingAddItem = state.items[existingAddIndex]
+                const updatedAddItem = {
+                    ...existingAddItem,
+                    quantity: existingAddItem.quantity + 1
                 }
-                updatedItems[existingIndex] = updatedItem
+                updatedAddItems[existingAddIndex] = updatedAddItem
             } else {
-                updatedItems.push({
+                updatedAddItems.push({
                     ...action.item,
                     quantity: 1
                 })
             }
             return {
                 ...state,
-                items : updatedItems
+                items : updatedAddItems
+            };
+        
+        case REMOVE_ITEM:
+            const existingRemoveIndex = state.items.findIndex((item) => item.Id === action.item.id)
+            
+            const existingRemoveCartItem = state.items[existingRemoveIndex]
+            
+            const updatedRemoveItems = [...state.items]
+            
+            if (existingRemoveCartItem.quantity === 1) {
+                updatedRemoveItems.splice(existingRemoveIndex, 1)
+            } else {
+                const updatedRemoveItem = {
+                    ...existingRemoveCartItem,
+                    quantity: existingRemoveCartItem.quantity - 1
+                }
+                updatedRemoveItems[existingRemoveIndex] = updatedRemoveItem
+            }
+            
+            return {
+                ...state,
+                items : updatedRemoveItems
             };
     
         default:
