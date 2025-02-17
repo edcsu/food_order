@@ -20,16 +20,22 @@ const requestConfig = {
 }
 
 function Checkout() {
-    const {items, addItem, removeItem} = useContext(CartContext)
+    const {items, addItem, removeItem, clearCart} = useContext(CartContext)
     const userCtx = useContext(UserProgressContext)
     
     const cartTotal = items.reduce(
         (totalPrice, item) => totalPrice + item.quantity * item.price, 0)
 
-    const {data, isLoading, error, sendRequest} = useHttp(`${BASE_URL}/orders`, requestConfig, null)
+    const {data, isLoading, error, sendRequest, clearData} = useHttp(`${BASE_URL}/orders`, requestConfig, null)
 
     function handleClose() {
         userCtx.hideCheckout()
+    }
+
+    function handleFinish() {
+        userCtx.hideCheckout()
+        clearCart()
+        clearData()
     }
 
     function handleSubmit(event) {
@@ -63,14 +69,14 @@ function Checkout() {
 
     if (data && !error) {
         return (
-            <Modal open={userCtx.progress === 'checkout'} onClose={handleClose}>
+            <Modal open={userCtx.progress === 'checkout'} onClose={handleFinish}>
                 <h2>Success!</h2>
                 <p>
                     Your order was submitted successfully
                 </p>
                 <p>We will get back to you with more details via email shortly</p>
                 <p className='modal-actions'>
-                    <Button onClick={handleClose}>
+                    <Button onClick={handleFinish}>
                         Ok
                     </Button>
                 </p>
