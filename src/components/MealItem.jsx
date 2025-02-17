@@ -1,4 +1,4 @@
-import {BASE_URL} from '../utils/constants'
+import { BASE_URL, currencyFormatter} from '../utils/constants'
 
 function MealItem({ meal}) {
   return (
@@ -7,7 +7,9 @@ function MealItem({ meal}) {
             <img src={`${BASE_URL}/${meal.image}`} alt={meal.name} />
             <div>
                 <h3>{meal.name}</h3>
-                <p className='meatl-item-price'>{meal.price}</p>
+                <p className='meal-item-price'>
+                    {currencyFormatter.format(meal.price)}
+                </p>
                 <p className='meal-item-description'>{meal.description}</p>
             </div>
             <p className='mea-item-actions'>
