@@ -17,6 +17,11 @@ function Cart() {
     function handleCloseCart() {
         userCtx.hideCart()
     }
+
+    function handleGoToCheckout() {
+        userCtx.showCheckout()
+    }
+
     return (
         <Modal className='cart' open={userCtx.progress === 'cart'}>
             <h2>Your cart</h2>
@@ -37,7 +42,7 @@ function Cart() {
             </p>
             <p className='modal-actions'>
                 <Button onClick={handleCloseCart} textOnly>Close</Button>
-                {items.length > 0 && <Button onClick={handleCloseCart}>Checkout</Button>}
+                {items.length > 0 && <Button onClick={handleGoToCheckout}>Checkout</Button>}
             </p>
         </Modal>
     )

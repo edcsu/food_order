@@ -33,11 +33,9 @@ function cartReducer(state, action) {
             };
         
         case REMOVE_ITEM:
-            console.log(action)
             const existingRemoveIndex = state.items.findIndex((item) => item.id === action.item)
             
             const existingRemoveCartItem = state.items[existingRemoveIndex]
-            console.log(existingRemoveIndex)
             const updatedRemoveItems = [...state.items]
             
             if (existingRemoveCartItem?.quantity === 1) {
