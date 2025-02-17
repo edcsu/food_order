@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { BASE_URL } from '../utils/constants'
+import MealItem from './MealItem'
 function Meals() {
     const [foundMeals, setFoundMeals] = useState([])
     useEffect(() => {
@@ -21,9 +22,9 @@ function Meals() {
 
     return (
     <ul id='meals'>
-        {foundMeals.map((meal) => <li key={meal.id}>
-            {meal.name}
-        </li>)}
+        {foundMeals.map((meal) => (
+            <MealItem meal={meal} />
+        ))}
     </ul>
     )
 }

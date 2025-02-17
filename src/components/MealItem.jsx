@@ -1,10 +1,10 @@
-import React from 'react'
+import {BASE_URL} from '../utils/constants'
 
 function MealItem({ meal}) {
   return (
     <li className='meal-item'>
         <article>
-            <img src={meal.image} alt={meal.name} />
+            <img src={`${BASE_URL}/${meal.image}`} alt={meal.name} />
             <div>
                 <h3>{meal.name}</h3>
                 <p className='meatl-item-price'>{meal.price}</p>
