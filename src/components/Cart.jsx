@@ -5,6 +5,7 @@ import CartContext from '../store/CartContext'
 import { currencyFormatter } from '../utils/constants'
 import Button from './UI/Button'
 import UserProgressContext from '../store/UserProgressContext'
+import CartItem from './CartItem'
 
 function Cart() {
     const {items} = useContext(CartContext)
@@ -21,9 +22,12 @@ function Cart() {
             <h2>Your cart</h2>
             <ul>
                 {items.map((item) => (
-                    <li key={item.id}>
-                        {item.name} - {item.quantity}
-                    </li>
+                    <CartItem 
+                        key={item.id} 
+                        name={item.name} 
+                        quantity={item.quantity} 
+                        price={item.price}
+                    />
                 ))}
             </ul>
             <p className='cart-total'>
