@@ -12,6 +12,10 @@ function Cart() {
     
     const cartTotal = items.reduce(
         (totalPrice, item) => totalPrice + item.quantity * item.price, 0)
+
+    function handleCloseCart() {
+        userCtx.hideCart()
+    }
     return (
         <Modal className='cart' open={userCtx.progress === 'cart'}>
             <h2>Your cart</h2>
@@ -26,8 +30,8 @@ function Cart() {
                 {currencyFormatter.format(cartTotal)}
             </p>
             <p className='modal-actions'>
-                <Button textOnly>Close</Button>
-                <Button>Checkout</Button>
+                <Button onClick={handleCloseCart} textOnly>Close</Button>
+                <Button onClick={handleCloseCart}>Checkout</Button>
             </p>
         </Modal>
     )
