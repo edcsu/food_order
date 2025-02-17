@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useActionState } from 'react'
 import Modal from './UI/Modal'
 
 import { BASE_URL, currencyFormatter } from '../utils/constants'
@@ -38,7 +38,7 @@ function Checkout() {
         clearData()
     }
 
-    async function checkoutAction(formData) {
+    async function checkoutAction(prevState, formData) {
         const customerData = Object.fromEntries(formData.entries())
 
         await sendRequest(JSON.stringify({
@@ -49,6 +49,8 @@ function Checkout() {
         }))
     }
 
+    const [formState, formAction, pending] =  useActionState(checkoutAction, null)
+
     let actions = (
         <>
             <Button type="button" textOnly onClick={handleClose}>
@@ -58,7 +60,7 @@ function Checkout() {
         </>
     )
 
-    if (isLoading) {
+    if (pending) {
         actions = (
             <span>Sending your order...</span>
         )
@@ -83,7 +85,7 @@ function Checkout() {
 
     return (
         <Modal open={userCtx.progress === 'checkout'} onClose={handleClose}>
-            <form action={checkoutAction}>
+            <form action={formAction}>
                 <h2>Checkout</h2>
                 <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
                 
