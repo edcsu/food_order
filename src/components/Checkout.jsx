@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import Modal from './UI/Modal'
 
-import { currencyFormatter } from '../utils/constants'
+import { BASE_URL, currencyFormatter } from '../utils/constants'
 
 import CartContext from '../store/CartContext'
 import UserProgressContext from '../store/UserProgressContext'
@@ -23,7 +23,21 @@ function Checkout() {
     function handleSubmit(event) {
         event.preventDefault()
 
-        
+        const formData = new FormData(event.target)
+        const customerData = Object.fromEntries(formData.entries())
+
+        fetch(`${BASE_URL}/orders`, {
+            method: 'POST',
+            headers: {
+                'Content-Type' : 'application/json'
+            },
+            body: JSON.stringify({
+                order: {
+                    items,
+                    customer: customerData
+                }
+            })
+        })
     }
 
     return (
@@ -33,7 +47,7 @@ function Checkout() {
                 <p>Total Amount: {currencyFormatter.format(cartTotal)}</p>
                 
                 <Input
-                    id="full-name"
+                    id="name"
                     label="Full Name"
                     type="text" 
                 />
