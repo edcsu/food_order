@@ -8,7 +8,7 @@ import UserProgressContext from '../store/UserProgressContext'
 import CartItem from './CartItem'
 
 function Cart() {
-    const {items} = useContext(CartContext)
+    const {items, addItem, removeItem} = useContext(CartContext)
     const userCtx = useContext(UserProgressContext)
     
     const cartTotal = items.reduce(
@@ -27,6 +27,8 @@ function Cart() {
                         name={item.name} 
                         quantity={item.quantity} 
                         price={item.price}
+                        onAdd={() => addItem(item)}
+                        OnRemove={() => removeItem(item.id)}
                     />
                 ))}
             </ul>
