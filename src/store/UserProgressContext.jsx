@@ -27,8 +27,8 @@ export function UserProgressContextProvder({ children }) {
         setuserProgress('')
     }
 
-    const userProgressCentext = {
-        prgress: userProgress,
+    const userProgressCtx = {
+        progress: userProgress,
         showCart,
         hideCart,
         showCheckout,
@@ -36,7 +36,7 @@ export function UserProgressContextProvder({ children }) {
     }
 
     return (
-        <UserProgressContext.Provider value={userProgressCentext}>
+        <UserProgressContext.Provider value={userProgressCtx}>
             {children}
         </UserProgressContext.Provider>
     )

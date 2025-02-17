@@ -4,13 +4,16 @@ import Modal from './UI/Modal'
 import CartContext from '../store/CartContext'
 import { currencyFormatter } from '../utils/constants'
 import Button from './UI/Button'
+import UserProgressContext from '../store/UserProgressContext'
 
 function Cart() {
     const {items} = useContext(CartContext)
+    const userCtx = useContext(UserProgressContext)
+    
     const cartTotal = items.reduce(
         (totalPrice, item) => totalPrice + item.quantity * item.price, 0)
     return (
-        <Modal className='cart'>
+        <Modal className='cart' open={userCtx.progress === 'cart'}>
             <h2>Your cart</h2>
             <ul>
                 {items.map((item) => (

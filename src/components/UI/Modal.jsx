@@ -11,6 +11,7 @@ function Modal({children, open, className = ''}) {
     
     return createPortal(
         <dialog
+            ref={dialog}
             className={`modal ${className}`}
         >
             {children}
