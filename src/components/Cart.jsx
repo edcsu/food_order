@@ -37,7 +37,7 @@ function Cart() {
             </p>
             <p className='modal-actions'>
                 <Button onClick={handleCloseCart} textOnly>Close</Button>
-                <Button onClick={handleCloseCart}>Checkout</Button>
+                {items.length > 0 && <Button onClick={handleCloseCart}>Checkout</Button>}
             </p>
         </Modal>
     )
