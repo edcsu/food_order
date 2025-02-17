@@ -23,7 +23,7 @@ function Meals() {
     return (
     <ul id='meals'>
         {foundMeals.map((meal) => (
-            <MealItem meal={meal} />
+            <MealItem meal={meal}  key={meal.id}/>
         ))}
     </ul>
     )
